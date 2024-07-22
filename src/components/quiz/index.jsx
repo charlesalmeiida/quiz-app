@@ -1,6 +1,7 @@
 import { useState } from "react"
 import { QuestionAnswer } from "../QuestionAnswer"
 import S from "./styles.module.css"
+import { Button } from "../Button"
 
 const QUESTIONS = [
   {
@@ -35,7 +36,7 @@ const QUESTIONS = [
 ]
 
 export function Quiz() {
-  const currentQuestion = QUESTIONS[0]
+  const [currentQuestionIndex, setCurrentQuestionIndex] = useState(0)
   const [count, setCount] = useState(0)
   const [isCurrentQuestionAswered, setCurrentQuestionAnswered] = useState(false)
 
@@ -46,7 +47,7 @@ export function Quiz() {
 
     const isCorrectAnswer = question.correctAnswer === answer
     const resultClassName = isCorrectAnswer ? S.correct : S.incorrect
-    event.currentTarget.classList.toggle(resultClassName)
+    event.currentTarget.classList.add(resultClassName)
 
     if (isCorrectAnswer) {
       setCount(count + 1)
@@ -54,6 +55,16 @@ export function Quiz() {
 
     setCurrentQuestionAnswered(true)
   }
+
+  const handleNextQuestion = () => {
+    if (currentQuestionIndex + 1 < QUESTIONS.length) {
+      setCurrentQuestionIndex((index) => index + 1)
+    }
+
+    setCurrentQuestionAnswered(false)
+  }
+
+  const currentQuestion = QUESTIONS[currentQuestionIndex]
 
   return (
     <div className={S.container}>
@@ -74,6 +85,9 @@ export function Quiz() {
               </li>
             ))}
           </ul>
+          {isCurrentQuestionAswered && (
+            <Button onClick={handleNextQuestion}>Próxima Pergunta</Button>
+          )}
         </div>
       </div>
     </div>
