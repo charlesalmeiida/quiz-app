@@ -1,7 +1,14 @@
+import { ButtonHTMLAttributes } from "react"
 import { Button } from "../Button"
 import S from "./styles.module.css"
 
-export function Result(props) {
+interface ResultProps {
+  count: number
+  quizSize: number
+  handleTryAgain: () => void
+}
+
+export function Result(props: ResultProps) {
   return (
     <div className={S.container}>
       <h1 className={S.title}>Resultado</h1>

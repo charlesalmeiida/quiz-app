@@ -1,11 +1,18 @@
-import { useState } from "react"
+import { MouseEvent, useState } from "react"
 import { QuestionAnswer } from "../QuestionAnswer"
 import S from "./styles.module.css"
 import { Button } from "../Button"
 import { Result } from "../Result"
 import { ProgressBar } from "../ProgressBar"
 
-const QUESTIONS = [
+export interface Question {
+  id: number
+  question: string
+  answers: string[]
+  correctAnswer: string
+}
+
+const QUESTIONS: Question[] = [
   {
     id: 1,
     question: "Qual é o meu nome?",
@@ -38,22 +45,27 @@ const QUESTIONS = [
 ]
 
 export function Quiz() {
-  const [currentQuestionIndex, setCurrentQuestionIndex] = useState(0)
-  const [count, setCount] = useState(0)
-  const [isCurrentQuestionAswered, setCurrentQuestionAnswered] = useState(false)
-  const [isTakingQuiz, setIsTakingQuiz] = useState(true)
+  const [currentQuestionIndex, setCurrentQuestionIndex] = useState<number>(0)
+  const [count, setCount] = useState<number>(0)
+  const [isCurrentQuestionAswered, setCurrentQuestionAnswered] =
+    useState<boolean>(false)
+  const [isTakingQuiz, setIsTakingQuiz] = useState<boolean>(true)
   const quizSize = QUESTIONS.length
 
   const currentQuestionNumber = currentQuestionIndex + 1
 
-  function handleAnswerQuestion(event, question, answer) {
+  const handleAnswerQuestion = (
+    event: MouseEvent<HTMLButtonElement>,
+    question: Question,
+    answerQuestion: string
+  ): void => {
     if (isCurrentQuestionAswered) {
       return
     }
 
-    const isCorrectAnswer = question.correctAnswer === answer
+    const isCorrectAnswer = question.correctAnswer === answerQuestion
     const resultClassName = isCorrectAnswer ? S.correct : S.incorrect
-    event.currentTarget.classList.add(resultClassName)
+    event.currentTarget.classList.toggle(resultClassName)
 
     if (isCorrectAnswer) {
       setCount(count + 1)
@@ -96,9 +108,9 @@ export function Quiz() {
             </header>
             <ul className={S.answers}>
               {currentQuestion.answers.map((answer) => (
-                <li key={answer.id}>
+                <li key={answer} className={S.answerItem}>
                   <QuestionAnswer
-                    answer={answer}
+                    answerQuestion={answer}
                     question={currentQuestion}
                     handleAnswerQuestion={handleAnswerQuestion}
                   />
