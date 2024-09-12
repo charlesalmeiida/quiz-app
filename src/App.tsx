@@ -1,4 +1,4 @@
-import { Quiz } from "./components/Quiz/index"
+import { Quiz } from "./components/Quiz"
 import "./styles/global.css"
 
 function App() {
