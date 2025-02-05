@@ -22,7 +22,7 @@ const QUESTIONS: Question[] = [
   {
     id: 2,
     question: "Qual é a minha idade?",
-    answers: ["12", "30", "29", "19"],
+    answers: ["12", "30", "28", "19"],
     correctAnswer: "28",
   },
   {
