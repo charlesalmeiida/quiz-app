@@ -16,14 +16,14 @@ const QUESTIONS: Question[] = [
   {
     id: 1,
     question: "Qual é o meu nome?",
-    answers: ["Matheus", "Charles", "Carlos", "Tiago"],
+    answers: ["José", "Charles", "Pedro", "Thiago"],
     correctAnswer: "Charles",
   },
   {
     id: 2,
     question: "Qual é a minha idade?",
-    answers: ["12", "30", "27", "19"],
-    correctAnswer: "27",
+    answers: ["12", "30", "29", "19"],
+    correctAnswer: "28",
   },
   {
     id: 3,
